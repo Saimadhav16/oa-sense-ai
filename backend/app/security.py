@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import os
 from typing import Optional
 from passlib.context import CryptContext
-from jose import jwt, JWTError
+from jose import JWTError, jwt
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'development_secret_key')
 ALGORITHM = os.getenv('ALGORITHM', 'HS256')

@@ -1,6 +1,6 @@
 from datetime import datetime
-from pydantic import BaseModel, Field
-from typing import Optional, List
+from typing import Optional
+from pydantic import BaseModel
 
 
 class UserCreate(BaseModel):
@@ -15,14 +15,6 @@ class UserLogin(BaseModel):
     password: str
 
 
-class UserOut(BaseModel):
-    id: int
-    name: str
-    email: str
-    role: str
-    created_at: datetime
-
-
 class PatientCreate(BaseModel):
     patient_code: str
     name: str
@@ -32,19 +24,22 @@ class PatientCreate(BaseModel):
     location: Optional[str] = None
     occupation: Optional[str] = None
     activity_level: Optional[str] = 'moderate'
+    previous_joint_injury: Optional[bool] = False
+    family_history: Optional[bool] = False
+    physically_demanding_work: Optional[bool] = False
+    difficulty_walking: Optional[bool] = False
+    difficulty_climbing_stairs: Optional[bool] = False
+    morning_stiffness: Optional[bool] = False
 
 
 class PatientUpdate(PatientCreate):
     pass
 
 
-class PatientOut(PatientCreate):
-    id: int
-    created_at: datetime
-
-
 class QuestionnaireInput(BaseModel):
     patient_id: Optional[int] = None
+    age: int = 40
+    activity_level: str = 'moderate'
     pain_score: float = 0.0
     stiffness_score: float = 0.0
     mobility_score: float = 0.0
@@ -54,8 +49,6 @@ class QuestionnaireInput(BaseModel):
     pain_after_activity: float = 0.0
     pain_rating: float = 0.0
     mobility_rating: float = 0.0
-    age: int = 40
-    activity_level: str = 'moderate'
 
 
 class MovementMetrics(BaseModel):
