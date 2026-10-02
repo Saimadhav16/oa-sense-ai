@@ -1,11 +1,9 @@
-from datetime import datetime
-from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.models import Screening, Patient
-from app.schemas import ScreeningCreate, ScreeningOut
+from app.models import Patient, Screening
+from app.schemas import ScreeningCreate
 
 router = APIRouter()
 
@@ -27,15 +25,15 @@ def list_screenings(db: Session = Depends(get_db)):
     screenings = db.query(Screening).all()
     return [
         {
-            'id': s.id,
-            'patient_id': s.patient_id,
-            'screening_date': s.screening_date,
-            'pain_score': s.pain_score,
-            'risk_level': s.risk_level,
-            'risk_probability': s.risk_probability,
-            'model_version': s.model_version,
+            'id': item.id,
+            'patient_id': item.patient_id,
+            'screening_date': item.screening_date,
+            'pain_score': item.pain_score,
+            'risk_level': item.risk_level,
+            'risk_probability': item.risk_probability,
+            'model_version': item.model_version,
         }
-        for s in screenings
+        for item in screenings
     ]
 
 

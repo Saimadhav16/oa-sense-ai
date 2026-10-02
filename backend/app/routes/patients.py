@@ -13,18 +13,18 @@ def list_patients(db: Session = Depends(get_db)):
     patients = db.query(Patient).all()
     return [
         {
-            'id': p.id,
-            'patient_code': p.patient_code,
-            'name': p.name,
-            'age': p.age,
-            'gender': p.gender,
-            'phone': p.phone,
-            'location': p.location,
-            'occupation': p.occupation,
-            'activity_level': p.activity_level,
-            'created_at': p.created_at,
+            'id': patient.id,
+            'patient_code': patient.patient_code,
+            'name': patient.name,
+            'age': patient.age,
+            'gender': patient.gender,
+            'phone': patient.phone,
+            'location': patient.location,
+            'occupation': patient.occupation,
+            'activity_level': patient.activity_level,
+            'created_at': patient.created_at,
         }
-        for p in patients
+        for patient in patients
     ]
 
 
@@ -36,7 +36,7 @@ def create_patient(payload: PatientCreate, db: Session = Depends(get_db)):
     db.add(patient)
     db.commit()
     db.refresh(patient)
-    return {'message': 'Patient created successfully', 'patient': patient.id}
+    return {'message': 'Patient created successfully', 'patient_id': patient.id}
 
 
 @router.get('/{patient_id}')

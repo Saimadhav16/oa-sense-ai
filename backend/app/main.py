@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
 
 from app.database import Base, engine
-from app.routes import auth, patients, screenings, analysis, dashboard, reports, socket
+from app.routes import auth, dashboard, patients, reports, screenings, analysis, socket
 
-app = FastAPI(title='OA-Sense AI API', version='0.1.0')
+app = FastAPI(title='OA-Sense AI', version='0.1.0')
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,7 +23,7 @@ app.include_router(screenings.router, prefix='/api/screenings', tags=['screening
 app.include_router(analysis.router, prefix='/api/analysis', tags=['analysis'])
 app.include_router(dashboard.router, prefix='/api/dashboard', tags=['dashboard'])
 app.include_router(reports.router, prefix='/api/reports', tags=['reports'])
-app.include_router(socket.router, tags=['socket'])
+app.include_router(socket.router, tags=['websocket'])
 
 @app.get('/api/health')
 def health_check():

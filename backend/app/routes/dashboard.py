@@ -11,9 +11,9 @@ router = APIRouter()
 def statistics(db: Session = Depends(get_db)):
     total_patients = db.query(Patient).count()
     total_screenings = db.query(Screening).count()
-    high_risk = db.query(Screening).filter(Screening.risk_level.like('%High%')).count()
-    moderate_risk = db.query(Screening).filter(Screening.risk_level.like('%Moderate%')).count()
-    low_risk = db.query(Screening).filter(Screening.risk_level.like('%Low%')).count()
+    high_risk = db.query(Screening).filter(Screening.risk_level.ilike('%High%')).count()
+    moderate_risk = db.query(Screening).filter(Screening.risk_level.ilike('%Moderate%')).count()
+    low_risk = db.query(Screening).filter(Screening.risk_level.ilike('%Low%')).count()
     return {
         'total_patients': total_patients,
         'screenings_today': total_screenings,

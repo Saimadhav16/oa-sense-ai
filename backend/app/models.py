@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text
-from sqlalchemy.orm import relationship
 from datetime import datetime
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from app.database import Base
 
 
@@ -20,11 +20,17 @@ class Patient(Base):
     patient_code = Column(String, unique=True, index=True, nullable=False)
     name = Column(String, nullable=False)
     age = Column(Integer, nullable=False)
-    gender = Column(String)
-    phone = Column(String)
-    location = Column(String)
-    occupation = Column(String)
+    gender = Column(String, default='Not specified')
+    phone = Column(String, default='')
+    location = Column(String, default='')
+    occupation = Column(String, default='')
     activity_level = Column(String, default='moderate')
+    previous_joint_injury = Column(Integer, default=0)
+    family_history = Column(Integer, default=0)
+    physically_demanding_work = Column(Integer, default=0)
+    difficulty_walking = Column(Integer, default=0)
+    difficulty_climbing_stairs = Column(Integer, default=0)
+    morning_stiffness = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
     screenings = relationship('Screening', back_populates='patient')
 
@@ -67,6 +73,6 @@ class Report(Base):
     __tablename__ = 'reports'
     id = Column(Integer, primary_key=True, index=True)
     screening_id = Column(Integer, ForeignKey('screenings.id'))
-    file_path = Column(String)
+    file_path = Column(String, default='')
     created_at = Column(DateTime, default=datetime.utcnow)
     screening = relationship('Screening', back_populates='reports')

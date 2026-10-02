@@ -19,17 +19,17 @@ class PatientCreate(BaseModel):
     patient_code: str
     name: str
     age: int
-    gender: Optional[str] = None
-    phone: Optional[str] = None
-    location: Optional[str] = None
-    occupation: Optional[str] = None
+    gender: Optional[str] = 'Not specified'
+    phone: Optional[str] = ''
+    location: Optional[str] = ''
+    occupation: Optional[str] = ''
     activity_level: Optional[str] = 'moderate'
-    previous_joint_injury: Optional[bool] = False
-    family_history: Optional[bool] = False
-    physically_demanding_work: Optional[bool] = False
-    difficulty_walking: Optional[bool] = False
-    difficulty_climbing_stairs: Optional[bool] = False
-    morning_stiffness: Optional[bool] = False
+    previous_joint_injury: Optional[int] = 0
+    family_history: Optional[int] = 0
+    physically_demanding_work: Optional[int] = 0
+    difficulty_walking: Optional[int] = 0
+    difficulty_climbing_stairs: Optional[int] = 0
+    morning_stiffness: Optional[int] = 0
 
 
 class PatientUpdate(PatientCreate):
